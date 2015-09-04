@@ -20,7 +20,8 @@ app.get('/', function(req, res){
 
 
 socketio.on('connection', function(socket){
-	console.log('user connected');
+	console.log('user connected', socket.id);
+	redis.createGame(socket.id);
 	socket.on('disconnected', function(){
 		console.log('user disconnected');
 	});

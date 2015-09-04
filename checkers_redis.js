@@ -6,17 +6,18 @@ client.on('connect', function(){
 	console.log('connected to redis');
 })
 
+var exports = module.exports;
+
 checkAwaitingGames = function(){
 	
 }
 
-createGame = function(sessionid){
+exports.createGame = function(sessionid){
 	var uuid1 = uuid.v4();
 	var game = config.redis_root_key+uuid1;
 	client.hmset(game, {
 		'player1': sessionid,
 		'player2': ''
 	});
-}
+};
 
-module.exports = client;
