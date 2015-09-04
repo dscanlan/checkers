@@ -1,0 +1,10 @@
+{
+	game1 : {
+		player1: userid,
+		player2: userid
+	}
+	game2: {
+		player1: userid,
+		player2: ''
+	}
+}
