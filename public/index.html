@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="socket.io-client/socket.io.js"></script>
+        <script src="angularjs/angular.min.js"></script>
+        <script src="checkers.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    </head>
+    <body ng-app="checkers" ng-controller="checkerctrl as vm">
+        
+        <p>Messages</p>
+        <p>
+        	<li ng-repeat="mes in vm.lst">{{mes}}</li>
+        </p>
+
+        <div>
+        	<input type="text" ng-model="vm.message" id="message"/><button type='button' ng-click ="sendMessage()">send</button>
+        </div>
+    </body>
+</html>
