@@ -17,7 +17,7 @@
 
 		socket.on('chat message', function(msg){
 			vm.lst.push(msg);
-			
+			$scope.$apply();
 		})
 	}]);
 })();
