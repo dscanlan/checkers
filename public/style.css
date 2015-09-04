@@ -1,0 +1,17 @@
+
+
+
+.messages {
+  height: 35%;
+  background-color: #005BC5;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px; }
+
+
+.messagescontainer{
+	height:70%;
+	background-color: white;
+	overflow:hidden;
+}
