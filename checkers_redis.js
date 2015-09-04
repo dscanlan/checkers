@@ -51,8 +51,10 @@ exports.assignGame = function(game, socketid){
 			console.log('error assigning to game');
 		}
 		//console.log(reply);
+		
 		reply.player2 = socketid;
-		console.log('reply' ,reply)
+		client.hmset(game, reply);
+		//console.log('reply' ,reply)
 	});
 };
 
@@ -68,7 +70,7 @@ exports.createGame = function(sessionid){
 };
 
 exports.closeGame = function(sessionid){
-	console.log('socket.id', sessionid);
+	//console.log('socket.id', sessionid);
 	client.keys('*', function(err, games){
 		games.forEach(function(game, i){
 			//console.log(game);
