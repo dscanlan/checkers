@@ -19,24 +19,32 @@ exports.checkAwaitingGames = function(socket, callback){
 
 			});
 		});*/
-		games.forEach(function(game, i){
-			console.log(game);
-			client.get(game, function(err, reply){
-				//console.log(reply);
-				if(reply.player2 !== '' && reply.player2 !== socket.id){
-					//console.log('game', reply);
-					callback({game: reply, found: true, socket: socket});
-				}
-				else{
-					callback({game: '', found: false, socket: socket});
-				}
+		if(games.length > 0){
+			games.forEach(function(game, i){
+				//console.log(game);
+				client.hgetall(game, function(err, reply){
+					//console.log(reply);
+					if(reply.player2 === '' && reply.player2 !== socket.id){
+						console.log('game', reply);
+						callback({game: game, found: true, socket: socket});
+					}
+					else{
+						
+						callback({game: '', found: false, socket: socket});
+					}
+				});
 			});
-		});
+		}
+		else
+		{
+			callback({game: '', found: false, socket: socket});
+		}
 	});
 };
 
 exports.assignGame = function(game, socketid){
-	client.hmget(game, function(err, reply){
+	console.log('in assign', game);
+	client.hgetall(game, function(err, reply){
 
 		if(err){
 			exports.createGame(socketid);

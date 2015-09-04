@@ -19,8 +19,10 @@ app.get('/', function(req, res){
 
 var associateGame = function(obj){
 	if(obj.found){
+		console.log('associateGame assignGame');
 		redis.assignGame(obj.game, obj.socket.id);
 	}else{
+		console.log('associateGame createGame');
 		redis.createGame(obj.socket.id);
 	}
 }
