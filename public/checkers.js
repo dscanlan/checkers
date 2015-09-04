@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-	var app = angular.module('checkers', []);
+	var app = angular.module('checkers', ['ui.bootstrap']);
 	app.controller('checkerctrl', ['$scope', function($scope){
 		var vm = this;
 		vm.lst = [];
