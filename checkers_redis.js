@@ -25,7 +25,7 @@ exports.checkAwaitingGames = function(socket, callback){
 				client.hgetall(game, function(err, reply){
 					//console.log(reply);
 					if(reply.player2 === '' && reply.player2 !== socket.id){
-						console.log('game', reply);
+						//console.log('game', reply);
 						callback({game: game, found: true, socket: socket});
 					}
 					else{
@@ -43,14 +43,14 @@ exports.checkAwaitingGames = function(socket, callback){
 };
 
 exports.assignGame = function(game, socketid){
-	console.log('in assign', game);
+	//console.log('in assign', game);
 	client.hgetall(game, function(err, reply){
 
 		if(err){
 			exports.createGame(socketid);
 			console.log('error assigning to game');
 		}
-		console.log(reply);
+		//console.log(reply);
 		reply.player2 = socketid;
 		console.log('reply' ,reply)
 	});
