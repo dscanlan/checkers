@@ -24,7 +24,7 @@ exports.checkAwaitingGames = function(socket, callback){
 				//console.log(game);
 				client.hgetall(game, function(err, reply){
 					//console.log(reply);
-					if(reply.player2 === '' && reply.player2 !== socket.id){
+					if(reply.player2 === '' && reply.player1 !== socket.id){
 						//console.log('game', reply);
 						callback({game: game, found: true, socket: socket});
 					}
@@ -66,4 +66,20 @@ exports.createGame = function(sessionid){
 
 
 };
+
+exports.closeGame = function(sessionid){
+	console.log('socket.id', sessionid);
+	client.keys('*', function(err, games){
+		games.forEach(function(game, i){
+			//console.log(game);
+			client.hgetall(game, function(err, reply){
+				//console.log(reply);
+				if(reply.player1 === sessionid){
+					client.del(game);
+				}
+				
+			});
+		});
+	});
+}
 

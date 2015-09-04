@@ -31,7 +31,8 @@ socketio.on('connection', function(socket){
 	console.log('user connected', socket.id);
 	redis.checkAwaitingGames(socket, associateGame);
 	
-	socket.on('disconnected', function(){
+	socket.on('disconnect', function(){
+		redis.closeGame(socket.id);
 		console.log('user disconnected');
 	});
 	socket.on('chat message', function(message){
