@@ -17,11 +17,18 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/index.html');
 });
 
-
+var associateGame = function(obj){
+	if(obj.found){
+		redis.assignGame(obj.game, obj.socket.id);
+	}else{
+		redis.createGame(obj.socket.id);
+	}
+}
 
 socketio.on('connection', function(socket){
 	console.log('user connected', socket.id);
-	redis.createGame(socket.id);
+	redis.checkAwaitingGames(socket, associateGame);
+	
 	socket.on('disconnected', function(){
 		console.log('user disconnected');
 	});
@@ -31,6 +38,8 @@ socketio.on('connection', function(socket){
 		console.log('message: ' + message);
 	});
 });
+
+
 
 
 http.listen(config.server_port, function(){

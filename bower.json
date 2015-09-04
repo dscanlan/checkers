@@ -19,6 +19,7 @@
     "angularjs": "~1.4.5",
     "ui.bootstrap": "~0.13.4",
     "angular-bootstrap": "~0.13.4",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "async": "~1.4.2"
   }
 }
