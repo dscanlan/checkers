@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var config = require('./checkers_config');
 
 var http = require('http').Server(app);
 var socketio = require('socket.io')(http);

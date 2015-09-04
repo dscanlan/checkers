@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');
 var app = express();
+var config = require('./checkers_config');
 
 var http = require('http').Server(app);
 
@@ -20,6 +21,6 @@ app.get('/', function(req, res){
 
 
 
-http.listen(3000, function(){
-	console.log('Listening on port 3000');
+http.listen(config.server_port, function(){
+	console.log('Listening on port ' + config.server_port);
 });
