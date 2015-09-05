@@ -20,14 +20,26 @@ app.get('/', function(req, res){
 var associateGame = function(obj){
 	if(obj.found){
 		console.log('associateGame assignGame');
-		redis.assignGame(obj.game, obj.socket.id);
+		redis.assignGame(obj.game, obj.socket.id, dispatcher);
+		//socket.to(obj.socket.id).emit('player2');
 	}else{
 		console.log('associateGame createGame');
-		redis.createGame(obj.socket.id);
+		redis.createGame(obj.socket.id, dispatcher);
+
+		//socket.to(obj.socket.id).emit('player1');
 	}
 }
 
+var s = undefined;
+var dispatcher = function(type, obj, toid){
+	console.log(type, obj, toid);
+	s.to(toid).emit(type, obj);
+};
+
+
+
 socketio.on('connection', function(socket){
+	s = socket;
 	console.log('user connected', socket.id);
 	redis.checkAwaitingGames(socket, associateGame);
 	
@@ -40,6 +52,11 @@ socketio.on('connection', function(socket){
 		socket.emit('chat message',message);
 		console.log('message: ' + message);
 	});
+
+	socket.on('move taken', function(obj){
+		redis.getOpponent(obj, dispatcher)
+		
+	})
 });
 
 

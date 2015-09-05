@@ -42,7 +42,7 @@ exports.checkAwaitingGames = function(socket, callback){
 	});
 };
 
-exports.assignGame = function(game, socketid){
+exports.assignGame = function(game, socketid, dispatcher){
 	//console.log('in assign', game);
 	client.hgetall(game, function(err, reply){
 
@@ -55,10 +55,15 @@ exports.assignGame = function(game, socketid){
 		reply.player2 = socketid;
 		client.hmset(game, reply);
 		//console.log('reply' ,reply)
+		var message = {
+			name: game,
+			player: 'player2'
+		}
+		dispatcher('game', message, socketid);
 	});
 };
 
-exports.createGame = function(sessionid){
+exports.createGame = function(sessionid, dispatcher){
 	var uuid1 = uuid.v4();
 	var game = config.redis_root_key+uuid1;
 	client.hmset(game, {
@@ -66,7 +71,11 @@ exports.createGame = function(sessionid){
 		'player2': ''
 	});
 
-
+	var message = {
+			name: game,
+			player: 'player1'
+		}
+		dispatcher('game',message, sessionid);
 };
 
 exports.closeGame = function(sessionid){
@@ -84,4 +93,20 @@ exports.closeGame = function(sessionid){
 		});
 	});
 }
+
+exports.getOpponent = function(obj,  dispatcher){
+	client.hgetall(obj.name, function(err, found){
+		var message = {
+				grid: obj.grid
+			}
+		if(obj.player ==='player1'){
+
+			dispatcher('move taken', message, found.player2);
+			
+		}
+		else{
+			dispatcher('move taken', message, found.player1);
+		}
+	});
+};
 
