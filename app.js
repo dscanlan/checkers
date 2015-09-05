@@ -30,6 +30,8 @@ var associateGame = function(obj){
 	}
 }
 
+
+//dispatcher isn't working. Nothing recieved in client.
 var s = undefined;
 var dispatcher = function(type, obj, toid){
 	console.log(type, obj, toid);

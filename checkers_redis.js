@@ -10,6 +10,7 @@ client.on('connect', function(){
 var exports = module.exports;
 
 exports.checkAwaitingGames = function(socket, callback){
+	var foundGame = false;
 	client.keys('*', function(err, games){
 		/*async.forEachSeries(games, function(game, reply){
 			client.get(game, function(err, reply){
@@ -22,17 +23,23 @@ exports.checkAwaitingGames = function(socket, callback){
 		if(games.length > 0){
 			games.forEach(function(game, i){
 				//console.log(game);
-				client.hgetall(game, function(err, reply){
-					//console.log(reply);
-					if(reply.player2 === '' && reply.player1 !== socket.id){
-						//console.log('game', reply);
-						callback({game: game, found: true, socket: socket});
-					}
-					else{
-						
-						callback({game: '', found: false, socket: socket});
-					}
-				});
+				if(foundGame){
+					client.hgetall(game, function(err, reply){
+						//console.log(reply);
+						if(reply.player2 === '' && reply.player1 !== socket.id){
+							//console.log('game', reply);
+							callback({game: game, found: true, socket: socket});
+							foundGame = true;
+						}
+						else{
+							
+							callback({game: '', found: false, socket: socket});
+						}
+					});
+
+				
+				
+				}
 			});
 		}
 		else

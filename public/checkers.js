@@ -16,6 +16,10 @@
 			vm.message = '';
 		}
 
+		$scope.moveMade=function(grid){
+			socket.emit('move taken', {grid: grid, player: vm.game.player})
+		};
+
 		socket.on('chat message', function(msg){
 			vm.lst.push(msg);
 			$scope.$apply();
