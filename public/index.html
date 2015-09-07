@@ -13,6 +13,7 @@
         <script src="angularjs/angular.min.js"></script>
         <script src="checkers.js"></script>
         <script src="angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="lodash/lodash.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css"/>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -21,7 +22,7 @@
         <div class="checkers" id="main">
         <table id="chess_board" cellpadding="0" cellspacing="0">
 <!--             <tr>
-                <td id="A8"><a href="#" class="rook black">&#9820;</a></td>
+                <td id="A8"><a href="#" class="rook black">&#9679;</a></td>
                 <td id="B8"><a href="#" class="night black">&#9822;</a></td>
                 <td id="C8"><a href="#" class="bishop black">&#9821;</a></td>
                 <td id="D8"><a href="#" class="king black">&#9819;</a></td>
@@ -41,60 +42,60 @@
                 <td id="H7"><a href="#" class="pawn black">&#9823;</a></td>
             </tr> -->
             <tr>
-                <td id="A6"></td>
-                <td id="B6"></td>
-                <td id="C6"></td>
-                <td id="D6"></td>
+                <td id="A6"><i class="icon-opponent"></i></td>
+                <td id="B6"><i class=""></i></td>
+                <td id="C6"><i class="icon-opponent"></i></td>
+                <td id="D6"><i class=""></i></td>
                 <!-- <td id="E6"></td>
                 <td id="F6"></td>
                 <td id="G6"></td>
                 <td id="H6"></td> -->
             </tr>
             <tr>
-                <td id="A5"></td>
-                <td id="B5"></td>
-                <td id="C5"></td>
-                <td id="D5"></td>
+                <td id="A5"><i class=""></i></td>
+                <td id="B5"><i class="icon-opponent"></i></td>
+                <td id="C5"><i class=""></i></td>
+                <td id="D5"><i class="icon-opponent"></i></td>
                 <!-- <td id="E5"></td>
                 <td id="F5"></td>
                 <td id="G5"></td>
                 <td id="H5"></td> -->
             </tr>
             <tr>
-                <td id="A4"></td>
-                <td id="B4"></td>
-                <td id="C4"></td>
-                <td id="D4"></td>
+                <td id="A4"><i class=""></i></td>
+                <td id="B4"><i class=""></i></td>
+                <td id="C4"><i class=""></i></td>
+                <td id="D4"><i class=""></i></td>
                 <!-- <td id="E4"></td>
                 <td id="F4"></td>
                 <td id="G4"></td>
                 <td id="H4"></td> -->
             </tr>
             <tr>
-                <td id="A3"></td>
-                <td id="B3"></td>
-                <td id="C3"></td>
-                <td id="D3"></td>
+                <td id="A3"><i class=""></i></td>
+                <td id="B3"><i class=""></i></td>
+                <td id="C3"><i class=""></i></td>
+                <td id="D3"><i ng-click="movehere('D3')" class="">h</i></td>
                 <!-- <td id="E3"></td>
                 <td id="F3"></td>
                 <td id="G3"></td>
                 <td id="H3"></td> -->
             </tr>
             <tr>
-                <td id="A4"></td>
-                <td id="B4"></td>
-                <td id="C4"></td>
-                <td id="D4"></td>
+                <td id="A2"><i ng-click = "pieceselected('A2')" class="icon-myPiece"></i></td>
+                <td id="B2"><i class=""></i></td>
+                <td id="C2"><i ng-click = "pieceselected('C2')" class="icon-myPiece"></i></td>
+                <td id="D2"><i class=""></i></td>
                 <!-- <td id="E4"></td>
                 <td id="F4"></td>
                 <td id="G4"></td>
                 <td id="H4"></td> -->
             </tr>
             <tr>
-                <td id="A3"></td>
-                <td id="B3"></td>
-                <td id="C3"></td>
-                <td id="D3"></td>
+                <td id="A1"><i ng-click="movehere(A1)" class=""></i></td>
+                <td id="B1"><i ng-click = "pieceselected('B1')" ng-class="icon-myPiece"></i></td>
+                <td id="C1"><i ng-class=""></i></td>
+                <td id="D1"><i ng-click = "pieceselected('D1')" ng-class="icon-myPiece"></i></td>
                 <!-- <td id="E3"></td>
                 <td id="F3"></td>
                 <td id="G3"></td>
@@ -169,7 +170,7 @@
         </div>
 
 
-        <div id="messages" class="messages">
+        <!-- <div id="messages" class="messages">
         	<div>
         		<p>Messages</p>
 	        	<input type="text" ng-model="vm.message" id="message"/><button type='button' ng-click ="sendMessage()">send</button>
@@ -181,6 +182,6 @@
 		        </p>
 	        </div>
 	        
-        </div>
+        </div> -->
     </body>
 </html>

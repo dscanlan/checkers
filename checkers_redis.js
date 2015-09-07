@@ -111,9 +111,9 @@ exports.getOpponent = function(obj,  dispatcher){
 	//console.log('in getOpponent', obj);
 	client.hgetall(obj.name, function(err, found){
 		var message = {
-				grid: obj.grid
+				piece: obj.piece
 			};
-		console.log(found);
+		//console.log(found);
 		if(obj.player ==='player1'){
 			//console.log('find opponent',obj);
 			dispatcher('move taken', message, found.player2);

@@ -54,6 +54,7 @@ socketio.on('connection', function(socket){
 	});
 
 	socket.on('move taken', function(obj){
+		console.log('move taken', obj);
 		redis.getOpponent(obj, dispatcher);
 		
 	});

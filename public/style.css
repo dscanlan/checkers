@@ -1,6 +1,29 @@
 html { background-color: black; } 
 body { margin: 50px; background-color: white; height: 500px; overflow:auto}
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?c0dzht');
+	src:url('fonts/icomoon.eot?#iefixc0dzht') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?c0dzht') format('truetype'),
+		url('fonts/icomoon.woff?c0dzht') format('woff'),
+		url('fonts/icomoon.svg?c0dzht#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
 
 .messages {
   height: 35%;
@@ -57,4 +80,30 @@ a {
 	box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 	-moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 	-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+}
+
+.icon-myPiece:before{
+	cursor: hand;
+    cursor: pointer;
+
+	content: "\e600";
+	color: red;
+}
+.icon-myQueen:before{
+	content: "\e601";
+	color: red;
+	cursor: hand;
+    cursor: pointer;
+}
+.icon-opponent:before{
+	content: "\e600";
+	color: black;
+cursor: hand;
+    cursor: pointer;
+}
+.icon-opponentQueen:before{
+	content: "\e601";
+	color: black;
+	cursor: hand;
+    cursor: pointer;
 }
