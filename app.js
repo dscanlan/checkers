@@ -35,7 +35,7 @@ var associateGame = function(obj){
 var s = undefined;
 var dispatcher = function(type, obj, toid){
 	console.log(type, obj, toid);
-	s.to(toid).emit(type, obj);
+	socketio.to(toid).emit(type, obj);
 };
 
 

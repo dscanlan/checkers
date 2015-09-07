@@ -82,6 +82,7 @@ exports.createGame = function(sessionid, dispatcher){
 			name: game,
 			player: 'player1'
 		}
+		console.log('message set in createGame');
 		dispatcher('game',message, sessionid);
 };
 
