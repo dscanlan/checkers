@@ -14,10 +14,10 @@
 		$scope.sendMessage= function(){
 			socket.emit('chat message', vm.message);
 			vm.message = '';
-		}
+		};
 
 		$scope.moveMade=function(grid){
-			socket.emit('move taken', {grid: grid, player: vm.game.player})
+			socket.emit('move taken', {grid: grid, player: vm.game.player, name: vm.game.name})
 		};
 
 		socket.on('chat message', function(msg){
@@ -28,10 +28,10 @@
 		socket.on('game', function(game){
 			vm.game = game;
 			console.log(game);
-		})
+		});
 
 		socket.on('move taken', function(obj){
 			console.log(obj);
-		})
+		});
 	}]);
 })();

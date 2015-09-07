@@ -17,31 +17,29 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/public/index.html');
 });
 
-var associateGame = function(obj){
-	if(obj.found){
-		console.log('associateGame assignGame');
-		redis.assignGame(obj.game, obj.socket.id, dispatcher);
-		//socket.to(obj.socket.id).emit('player2');
-	}else{
-		console.log('associateGame createGame');
-		redis.createGame(obj.socket.id, dispatcher);
 
-		//socket.to(obj.socket.id).emit('player1');
-	}
-}
 
 
 //dispatcher isn't working. Nothing recieved in client.
-var s = undefined;
 var dispatcher = function(type, obj, toid){
 	console.log(type, obj, toid);
 	socketio.to(toid).emit(type, obj);
 };
 
+var associateGame = function(obj){
+	if(obj.found){
+		//console.log('associateGame assignGame');
+		redis.assignGame(obj.game, obj.socket.id, dispatcher);
+		//socket.to(obj.socket.id).emit('player2');
+	}else{
+		//console.log('associateGame createGame');
+		redis.createGame(obj.socket.id, dispatcher);
 
+		//socket.to(obj.socket.id).emit('player1');
+	}
+};
 
 socketio.on('connection', function(socket){
-	s = socket;
 	console.log('user connected', socket.id);
 	redis.checkAwaitingGames(socket, associateGame);
 	
@@ -56,9 +54,9 @@ socketio.on('connection', function(socket){
 	});
 
 	socket.on('move taken', function(obj){
-		redis.getOpponent(obj, dispatcher)
+		redis.getOpponent(obj, dispatcher);
 		
-	})
+	});
 });
 
 

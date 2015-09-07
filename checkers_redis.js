@@ -1,3 +1,4 @@
+'use strict';
 var redis = require('redis');
 var config = require('./checkers_config');
 var client = redis.createClient(); //By default, redis.createClient() will use 127.0.0.1 and 6379 as the hostname and port 
@@ -5,13 +6,15 @@ var uuid = require('node-uuid');
 //var async = require('async');
 client.on('connect', function(){
 	console.log('connected to redis');
-})
+});
 
 var exports = module.exports;
 
 exports.checkAwaitingGames = function(socket, callback){
+	//console.log('in checkAwaitingGames');
 	var foundGame = false;
 	client.keys('*', function(err, games){
+		//console.log('in client keys', games.length);
 		/*async.forEachSeries(games, function(game, reply){
 			client.get(game, function(err, reply){
 				if(err){
@@ -23,16 +26,16 @@ exports.checkAwaitingGames = function(socket, callback){
 		if(games.length > 0){
 			games.forEach(function(game, i){
 				//console.log(game);
-				if(foundGame){
+				if(!foundGame){
 					client.hgetall(game, function(err, reply){
 						//console.log(reply);
 						if(reply.player2 === '' && reply.player1 !== socket.id){
-							//console.log('game', reply);
+							//console.log('found game', reply);
 							callback({game: game, found: true, socket: socket});
 							foundGame = true;
 						}
 						else{
-							
+							//console.log('no games found');	
 							callback({game: '', found: false, socket: socket});
 						}
 					});
@@ -44,6 +47,7 @@ exports.checkAwaitingGames = function(socket, callback){
 		}
 		else
 		{
+			//console.log('there are no games');
 			callback({game: '', found: false, socket: socket});
 		}
 	});
@@ -65,12 +69,13 @@ exports.assignGame = function(game, socketid, dispatcher){
 		var message = {
 			name: game,
 			player: 'player2'
-		}
+		};
 		dispatcher('game', message, socketid);
 	});
 };
 
 exports.createGame = function(sessionid, dispatcher){
+	//console.log('in create game');
 	var uuid1 = uuid.v4();
 	var game = config.redis_root_key+uuid1;
 	client.hmset(game, {
@@ -81,7 +86,7 @@ exports.createGame = function(sessionid, dispatcher){
 	var message = {
 			name: game,
 			player: 'player1'
-		}
+		};
 		console.log('message set in createGame');
 		dispatcher('game',message, sessionid);
 };
@@ -100,15 +105,17 @@ exports.closeGame = function(sessionid){
 			});
 		});
 	});
-}
+};
 
 exports.getOpponent = function(obj,  dispatcher){
+	//console.log('in getOpponent', obj);
 	client.hgetall(obj.name, function(err, found){
 		var message = {
 				grid: obj.grid
-			}
+			};
+		console.log(found);
 		if(obj.player ==='player1'){
-
+			//console.log('find opponent',obj);
 			dispatcher('move taken', message, found.player2);
 			
 		}
