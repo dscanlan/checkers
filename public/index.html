@@ -20,6 +20,8 @@
     </head>
     <body ng-app="checkers" ng-controller="checkerctrl as vm">
         <div class="checkers" id="main">
+            My TURN {{vm.myturn}}
+            PLayer: {{vm.game.player}}
         <table id="chess_board" cellpadding="0" cellspacing="0">
 <!--             <tr>
                 <td id="A8"><a href="#" class="rook black">&#9679;</a></td>
@@ -42,60 +44,161 @@
                 <td id="H7"><a href="#" class="pawn black">&#9823;</a></td>
             </tr> -->
             <tr>
-                <td id="A6"><i class="icon-opponent"></i></td>
-                <td id="B6"><i class=""></i></td>
-                <td id="C6"><i class="icon-opponent"></i></td>
-                <td id="D6"><i class=""></i></td>
+                <!-- <td id="A1"><checkers-my-piece position="returngrid('A1')"></checkers-my-piece></td>
+                <td id="A2"><checkers-my-piece position="returngrid('A2')"></checkers-my-piece></td>
+                <td id="A3"><checkers-my-piece position="returngrid('A3')"></checkers-my-piece></td>
+                <td id="A4"><checkers-my-piece position="returngrid('A4')"></checkers-my-piece></td> -->
                 <!-- <td id="E6"></td>
                 <td id="F6"></td>
                 <td id="G6"></td>
                 <td id="H6"></td> -->
+                <td id="E1">
+                    <i ng-if="checkPosition('A1')===false" ng-click = "movehere('A1')">&nbsp;</i>
+                    <i ng-if="checkPosition('A1')===true" ng-click = "pieceselected('A1')" ng-class="getPositionClass('A1')"></i>
+                </td>
+                <td id="E2">
+                    <i ng-if="checkPosition('A2')===false" ng-click = "movehere('A2')">&nbsp;</i>
+                    <i ng-if="checkPosition('A2')===true" ng-click = "pieceselected('A2')" ng-class="getPositionClass('A2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('A3')===false" ng-click = "movehere('A3')">&nbsp;</i>
+                    <i ng-if="checkPosition('A3')===true" ng-click = "pieceselected('A3')" ng-class="getPositionClass('A3')"></i>
+                </td>
+                <td id="E4">
+                    <i ng-if="checkPosition('A4')===false" ng-click = "movehere('A4')">&nbsp;</i>
+                    <i ng-if="checkPosition('A4')===true" ng-click = "pieceselected('A4')" ng-class="getPositionClass('A4')"></i>
+                </td>
             </tr>
             <tr>
-                <td id="A5"><i class=""></i></td>
-                <td id="B5"><i class="icon-opponent"></i></td>
-                <td id="C5"><i class=""></i></td>
-                <td id="D5"><i class="icon-opponent"></i></td>
+                <!-- <td id="B1"><checkers-my-piece position="returngrid('B1')"></checkers-my-piece></td>
+                <td id="B2"><checkers-my-piece position="returngrid('B2')"></checkers-my-piece></td>
+                <td id="B3"><checkers-my-piece position="returngrid('B3')"></checkers-my-piece></td>
+                <td id="B4"><checkers-my-piece position="returngrid('B4')"></checkers-my-piece></td> -->
                 <!-- <td id="E5"></td>
                 <td id="F5"></td>
                 <td id="G5"></td>
                 <td id="H5"></td> -->
+                <td id="E1">
+                    <i ng-if="checkPosition('B1')===false" ng-click = "movehere('B1')">&nbsp;</i>
+                    <i ng-if="checkPosition('B1')===true" ng-click = "pieceselected('B1')" ng-class="getPositionClass('B1')"></i>
+                </td>
+                <td id="E2">
+                    <i ng-if="checkPosition('B2')===false" ng-click = "movehere('B2')">&nbsp;</i>
+                    <i ng-if="checkPosition('B2')===true" ng-click = "pieceselected('B2')" ng-class="getPositionClass('B2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('B3')===false" ng-click = "movehere('B3')">&nbsp;</i>
+                    <i ng-if="checkPosition('B3')===true" ng-click = "pieceselected('B3')" ng-class="getPositionClass('B3')"></i>
+                </td>
+                <td id="E4">
+                    <i ng-if="checkPosition('B4')===false" ng-click = "movehere('B4')">&nbsp;</i>
+                    <i ng-if="checkPosition('B4')===true" ng-click = "pieceselected('B4')" ng-class="getPositionClass('B4')"></i>
+                </td>
             </tr>
             <tr>
-                <td id="A4"><i class=""></i></td>
-                <td id="B4"><i class=""></i></td>
-                <td id="C4"><i class=""></i></td>
-                <td id="D4"><i class=""></i></td>
+                <!-- <td id="C1"><checkers-my-piece position="returngrid('C1')"></checkers-my-piece></td>
+                <td id="C2"><checkers-my-piece position="returngrid('C2')"></checkers-my-piece></td>
+                <td id="C3"><checkers-my-piece position="returngrid('C3')"></checkers-my-piece></td>
+                <td id="C4"><checkers-my-piece position="returngrid('C4')"></checkers-my-piece></td> -->
                 <!-- <td id="E4"></td>
                 <td id="F4"></td>
                 <td id="G4"></td>
                 <td id="H4"></td> -->
+                <td id="E1">
+                    <i ng-if="checkPosition('C1')===false" ng-click = "movehere('C1')">&nbsp;</i>
+                    <i ng-if="checkPosition('C1')===true" ng-click = "pieceselected('C1')" ng-class="getPositionClass('C1')"></i>
+                </td>
+                <td id="E2">
+                    <i ng-if="checkPosition('C2')===false" ng-click = "movehere('C2')">&nbsp;</i>
+                    <i ng-if="checkPosition('C2')===true" ng-click = "pieceselected('C2')" ng-class="getPositionClass('C2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('C3')===false" ng-click = "movehere('C3')">&nbsp;</i>
+                    <i ng-if="checkPosition('C3')===true" ng-click = "pieceselected('C3')" ng-class="getPositionClass('C3')"></i>
+                </td>
+                <td id="E4">
+                    <i ng-if="checkPosition('C4')===false" ng-click = "movehere('C4')">&nbsp;</i>
+                    <i ng-if="checkPosition('C4')===true" ng-click = "pieceselected('C4')" ng-class="getPositionClass('C4')"></i>
+                </td>
             </tr>
             <tr>
-                <td id="A3"><i class=""></i></td>
-                <td id="B3"><i class=""></i></td>
-                <td id="C3"><i class=""></i></td>
-                <td id="D3"><i ng-click="movehere('D3')" class="">h</i></td>
+                <!-- <td id="D1"><checkers-my-piece position="returngrid('D1')"></checkers-my-piece></td>
+                <td id="D2"><checkers-my-piece position="returngrid('D2')"></checkers-my-piece></td>
+                <td id="D3"><checkers-my-piece position="returngrid('D3')"></checkers-my-piece></td>
+                <td id="D4"><checkers-my-piece position="returngrid('D4')"></checkers-my-piece></td> -->
                 <!-- <td id="E3"></td>
                 <td id="F3"></td>
                 <td id="G3"></td>
                 <td id="H3"></td> -->
+                <td id="E1">
+                    <i ng-if="checkPosition('D1')===false" ng-click = "movehere('D1')">&nbsp;</i>
+                    <i ng-if="checkPosition('D1')===true" ng-click = "pieceselected('D1')" ng-class="getPositionClass('D1')"></i>
+                </td>
+                <td id="E2">
+                    <i ng-if="checkPosition('D2')===false" ng-click = "movehere('D2')">&nbsp;</i>
+                    <i ng-if="checkPosition('D2')===true" ng-click = "pieceselected('D2')" ng-class="getPositionClass('D2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('D3')===false" ng-click = "movehere('D3')">&nbsp;</i>
+                    <i ng-if="checkPosition('D3')===true" ng-click = "pieceselected('D3')" ng-class="getPositionClass('D3')"></i>
+                </td>
+                <td id="E4">
+                    <i ng-if="checkPosition('D4')===false" ng-click = "movehere('D4')">&nbsp;</i>
+                    <i ng-if="checkPosition('D4')===true" ng-click = "pieceselected('D4')" ng-class="getPositionClass('D4')"></i>
+                </td>
             </tr>
             <tr>
-                <td id="A2"><i ng-click = "pieceselected('A2')" class="icon-myPiece"></i></td>
-                <td id="B2"><i class=""></i></td>
-                <td id="C2"><i ng-click = "pieceselected('C2')" class="icon-myPiece"></i></td>
-                <td id="D2"><i class=""></i></td>
+                <!-- <td id="E1"><checkers-my-piece position="returngrid('E1')"></checkers-my-piece></td>
+                <td id="E2"><checkers-my-piece position="returngrid('E2')"></checkers-my-piece></td>
+                <td id="E3"><checkers-my-piece position="returngrid('E3')"></checkers-my-piece></td>
+                <td id="E4"><checkers-my-piece position="returngrid('E4')"></checkers-my-piece></td> -->
                 <!-- <td id="E4"></td>
                 <td id="F4"></td>
                 <td id="G4"></td>
                 <td id="H4"></td> -->
+                <td id="E1">
+                    <i ng-if="checkPosition('E1')===false" ng-click = "movehere('E1')">&nbsp;</i>
+                    <i ng-if="checkPosition('E1')===true" ng-click = "pieceselected('E1')" ng-class="getPositionClass('E1')"></i>
+                </td>
+                <td id="E2">
+                    <i ng-if="checkPosition('E2')===false" ng-click = "movehere('E2')">&nbsp;</i>
+                    <i ng-if="checkPosition('E2')===true" ng-click = "pieceselected('E2')" ng-class="getPositionClass('E2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('E3')===false" ng-click = "movehere('E3')">&nbsp;</i>
+                    <i ng-if="checkPosition('E3')===true" ng-click = "pieceselected('E3')" ng-class="getPositionClass('E3')"></i>
+                </td>
+                <td id="E4">
+                    <i ng-if="checkPosition('E4')===false" ng-click = "movehere('E4')">&nbsp;</i>
+                    <i ng-if="checkPosition('E4')===true" ng-click = "pieceselected('E4')" ng-class="getPositionClass('E4')"></i>
+                </td>
             </tr>
             <tr>
-                <td id="A1"><i ng-click="movehere(A1)" class=""></i></td>
-                <td id="B1"><i ng-click = "pieceselected('B1')" ng-class="icon-myPiece"></i></td>
-                <td id="C1"><i ng-class=""></i></td>
-                <td id="D1"><i ng-click = "pieceselected('D1')" ng-class="icon-myPiece"></i></td>
+                <!-- <td id="F1"><checkers-my-piece position="returngrid('F1')"></checkers-my-piece></td>
+                <td id="F2"><checkers-my-piece position="returngrid('F2')"></checkers-my-piece></td>
+                <td id="F3"><checkers-my-piece position="returngrid('F3')"></checkers-my-piece></td>
+                <td id="F4">
+                    <checkers-my-piece position="returngrid('F4')">
+                        <i ng-click = "pieceselected('D1')" ng-class="elementClass"></i>
+                    </checkers-my-piece>
+                </td> -->
+                <td id="F1">
+                    <i ng-if="checkPosition('F1')===false" ng-click = "movehere('F1')">&nbsp;</i>
+                    <i ng-if="checkPosition('F1')===true" ng-click = "pieceselected('F1')" ng-class="getPositionClass('F1')"></i>
+                </td>
+                <td id="F2">
+                    <i ng-if="checkPosition('F2')===false" ng-click = "movehere('F2')">&nbsp;</i>
+                    <i ng-if="checkPosition('F2')===true" ng-click = "pieceselected('F2')" ng-class="getPositionClass('F2')"></i>
+                </td>
+                <td id="F3">
+                    <i ng-if="checkPosition('F3')===false" ng-click = "movehere('F3')">&nbsp;</i>
+                    <i ng-if="checkPosition('F3')===true" ng-click = "pieceselected('F3')" ng-class="getPositionClass('F3')"></i>
+                </td>
+                <td id="F4">
+                    <i ng-if="checkPosition('F4')===false" ng-click = "movehere('F4')">&nbsp;</i>
+                    <i ng-if="checkPosition('F4')===true" ng-click = "pieceselected('F4')" ng-class="getPositionClass('F4')"></i>
+                </td>
+                <!-- <td id="D1"><i ng-click = "pieceselected('D1')" ng-class="icon-myPiece"></i></td> -->
                 <!-- <td id="E3"></td>
                 <td id="F3"></td>
                 <td id="G3"></td>

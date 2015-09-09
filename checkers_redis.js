@@ -110,17 +110,15 @@ exports.closeGame = function(sessionid){
 exports.getOpponent = function(obj,  dispatcher){
 	//console.log('in getOpponent', obj);
 	client.hgetall(obj.name, function(err, found){
-		var message = {
-				piece: obj.piece
-			};
+		
 		//console.log(found);
 		if(obj.player ==='player1'){
 			//console.log('find opponent',obj);
-			dispatcher('move taken', message, found.player2);
+			dispatcher('move taken', obj, found.player2);
 			
 		}
 		else{
-			dispatcher('move taken', message, found.player1);
+			dispatcher('move taken', obj, found.player1);
 		}
 	});
 };

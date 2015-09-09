@@ -22,7 +22,7 @@ app.get('/', function(req, res){
 
 //dispatcher isn't working. Nothing recieved in client.
 var dispatcher = function(type, obj, toid){
-	console.log(type, obj, toid);
+	console.log(obj);
 	socketio.to(toid).emit(type, obj);
 };
 
