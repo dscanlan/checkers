@@ -47,7 +47,7 @@ socketio.on('connection', function(socket){
 	redis.checkAwaitingGames(socket, associateGame, dispatcher);
 	
 	socket.on('disconnect', function(){
-		redis.closeGame(socket.id);
+		redis.closeGame(socket.id, dispatcher);
 		console.log('user disconnected');
 	});
 	socket.on('chat message', function(message){

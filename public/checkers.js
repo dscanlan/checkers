@@ -180,6 +180,14 @@
 			$scope.$apply();
 		});
 
+		socket.on('player offline', function(msg){
+			if(vm.game.player ==='player1'){
+				vm.player2Found = false;
+			}
+
+			vm.myturn = false;
+		});
+
 		socket.on('move taken', function(obj){
 			//console.log('obj',obj);
 			vm.myturn = true;

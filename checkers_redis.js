@@ -84,7 +84,7 @@ exports.createGame = function(sessionid, dispatcher){
 		dispatcher('game',message, sessionid);
 };
 
-exports.closeGame = function(sessionid){
+exports.closeGame = function(sessionid, dispatcher){
 	//console.log('socket.id', sessionid);
 	client.keys('*', function(err, games){
 		games.forEach(function(game, i){
@@ -93,6 +93,10 @@ exports.closeGame = function(sessionid){
 				//console.log(reply);
 				if(reply.player1 === sessionid){
 					client.del(game);
+				}
+
+				if(reply.player2 ===sessionid){
+					dispatcher('player offline', {player: sessionid}, reply.player1);
 				}
 				
 			});
