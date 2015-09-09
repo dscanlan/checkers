@@ -9,47 +9,63 @@
 		vm.myturn = false;
 		vm.selectedpiece = {};
 
-		vm.icons = {player1:'icon-myPiece', player2:'icon-opponent',blank:''};
+		vm.icons = {player1:'icon-myPiece', player1Queen:'icon-myQueen' ,player2:'icon-opponent',player2Queen: 'icon-opponentQueen',blank:'blank'};
 
 		vm.pieces = 
 			[
-				
-					{position: 'A1', class: vm.icons.player2, player: 'player2'},
-					{position: 'A2', class: undefined, player: undefined},
-					{position: 'A3', class: vm.icons.player2, player: 'player2'},
-					{position: 'A4', class: undefined, player: undefined},
-				
-					{position: 'B1', class: undefined, player: undefined},
-					{position: 'B2', class: vm.icons.player2, player: 'player2'},
-					{position: 'B3', class: undefined, player: undefined},
-					{position: 'B4', class: vm.icons.player2, player: 'player2'},
-				
-					{position: 'C1', class: undefined, player: undefined},
-					{position: 'C2', class: undefined, player: undefined},
-					{position: 'C3', class: undefined, player: undefined},
-					{position: 'C4', class: undefined, player: undefined},
+				{position: 'A1', class: vm.icons.player2, player: 'player2', queen: false},
+				{position: 'A2', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'A3', class: vm.icons.player2, player: 'player2', queen: false},
+				{position: 'A4', class: vm.icons.blank, player: undefined, queen: false},
 			
-					{position: 'D1', class: undefined, player: undefined},
-					{position: 'D2', class: undefined, player: undefined},
-					{position: 'D3', class: undefined, player: undefined},
-					{position: 'D4', class: undefined, player: undefined},
-				
-					{position: 'E1', class: vm.icons.player1, player: 'player1'},
-					{position: 'E2', class: undefined, player: undefined},
-					{position: 'E3', class: vm.icons.player1, player: 'player1'},
-					{position: 'E4', class: undefined, player: undefined},
-				
-					{position: 'F1', class: undefined, player: undefined},
-					{position: 'F2', class: vm.icons.player1, player: 'player1'},
-					{position: 'F3', class: undefined, player: undefined},
-					{position: 'F4', class: vm.icons.player1, player: 'player1'}
-			]
+				{position: 'B1', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'B2', class: vm.icons.player2, player: 'player2', queen: false},
+				{position: 'B3', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'B4', class: vm.icons.player2, player: 'player2', queen: false},
 			
-		;
+				{position: 'C1', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'C2', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'C3', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'C4', class: vm.icons.blank, player: undefined, queen: false},
+		
+				{position: 'D1', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'D2', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'D3', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'D4', class: vm.icons.blank, player: undefined, queen: false},
+			
+				{position: 'E1', class: vm.icons.player1, player: 'player1', queen: false},
+				{position: 'E2', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'E3', class: vm.icons.player1, player: 'player1', queen: false},
+				{position: 'E4', class: vm.icons.blank, player: undefined, queen: false},
+			
+				{position: 'F1', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'F2', class: vm.icons.player1, player: 'player1', queen: false},
+				{position: 'F3', class: vm.icons.blank, player: undefined, queen: false},
+				{position: 'F4', class: vm.icons.player1, player: 'player1', queen: false}
+			];
 
-			/*mypieces:[{id:1, position: "A2"}, {id:2, position: "B1"},{id:3, position: "C2"}, {id: 4, position: "D1"}],
-			opponent:[{id:1, position: "A6"},{id:2, position:"B5"}, {id: 3, position: "C6"},{id:4, position:"D5"}]
-		};*/
+		vm.player1Home = ['F1', 'F2', 'F3', 'F4'];
+		vm.player2Home = ['A1', 'A2', 'A3', 'A4'];
+
+		vm.validateMove = function(from, to){
+			var currentPosition = _.where(vm.pieces, {position: from})[0];
+			
+			if(currentPosition.queen){
+				return true;
+			}
+			if(vm.game.player ==='player1'){
+				if(currentPosition.position.split('')[0] < to.split('')[0]){
+					return false;
+				}
+			}
+			else
+			{
+				if(currentPosition.position.split('')[0] > to.split('')[0]){
+					return false;
+				}
+			}
+			return true;
+		};
 
 		var socket = io();
 
@@ -90,21 +106,51 @@
 
 		$scope.movehere=function(position){
 			if(vm.selectedpiece.player === vm.game.player){
+
+				if(!vm.myturn){
+					return false;
+				}
+
+				if(!vm.validateMove(vm.selectedpiece.position, position))
+				{
+					return false;
+				}
 				vm.myturn = false;
 				
-				vm.selectedpiece.class= undefined;
-				vm.selectedpiece.player=undefined;
+				
+				
+				
 				vm._movedTo = _.where(vm.pieces, {position: position})[0];
+				vm._movedTo.queen = vm.selectedpiece.queen;
+				
 				if(vm.game.player ==='player1'){
-					vm._movedTo.class=vm.icons.player1;
+					vm._movedTo.class=vm.selectedpiece.class;
+
+					if(!vm._movedTo.queen){
+						var atAway = vm.player2Home.indexOf(position);
+						
+						if(atAway >= 0){
+							vm._movedTo.queen = true;
+							vm._movedTo.class=vm.icons.player1Queen;
+						}
+					}
 				}
-				else
-				{
-					vm._movedTo.class=vm.icons.player2;
+				else{
+					vm._movedTo.class=vm.selectedpiece.class;
+					if(!vm._movedTo.queen){
+						var atAway = vm.player1Home.indexOf(position);
+						if(atAway >= 0){
+							vm._movedTo.queen = true;
+							vm._movedTo.class=vm.icons.player2Queen;
+						}
+					}
 				}
 				vm._movedTo.player=vm.game.player;
-				console.log(vm.selectedpiece);
-				console.log('move taken', {piece: vm.selectedpiece, movedTo: vm._movedTo, player: vm.game.player, name: vm.game.name});
+				vm.selectedpiece.class= vm.icons.blank;
+				vm.selectedpiece.player=undefined;
+				vm.selectedpiece.queen = false;
+				console.log(vm._movedTo);
+				//console.log('move taken', {piece: vm.selectedpiece, movedTo: vm._movedTo, player: vm.game.player, name: vm.game.name});
 				socket.emit('move taken', {piece: vm.selectedpiece, movedTo: vm._movedTo, player: vm.game.player, name: vm.game.name});
 			}
 		};
@@ -119,7 +165,7 @@
 			if(vm.game.player==='player1'){
 				vm.myturn = true;
 			}
-			$scope.apply();
+			$scope.$apply();
 			//console.log(game);
 		});
 
@@ -128,9 +174,9 @@
 			vm.myturn = true;
 			var oppoPiece = _.where(vm.pieces, { position: obj.piece.position })[0]; //use lodash to find the piece in the oppo list.
 
-			oppoPiece.class = undefined;
+			oppoPiece.class = vm.icons.blank;
 			oppoPiece.player = undefined;
-
+			oppoPiece.queen = false;
 
 			var moved = _.where(vm.pieces, { position: obj.movedTo.position })[0];
 			if(obj.movedTo.player ==='player1'){
@@ -140,6 +186,7 @@
 				moved.class=vm.icons.player2;
 			}
 			moved.player = obj.movedTo.player;
+			moved.queen = obj.moveTo.queen;
 			$scope.$apply();
 			//console.log(moved);
 			//console.log(vm.pieces);

@@ -82,6 +82,11 @@ a {
 	-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 }
 
+.blank{
+	cursor: hand;
+    cursor: pointer;
+
+}
 .icon-myPiece:before{
 	cursor: hand;
     cursor: pointer;
