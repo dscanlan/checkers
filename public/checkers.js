@@ -152,7 +152,7 @@
 				vm.selectedpiece.class= vm.icons.blank;
 				vm.selectedpiece.player=undefined;
 				vm.selectedpiece.queen = false;
-				console.log(vm._movedTo);
+				//console.log(vm._movedTo);
 				//console.log('move taken', {piece: vm.selectedpiece, movedTo: vm._movedTo, player: vm.game.player, name: vm.game.name});
 				socket.emit('move taken', {piece: vm.selectedpiece, movedTo: vm._movedTo, player: vm.game.player, name: vm.game.name});
 			}
@@ -173,7 +173,7 @@
 		});
 
 		socket.on('move taken', function(obj){
-			console.log(obj);
+			//console.log(obj);
 			vm.myturn = true;
 			var oppoPiece = _.where(vm.pieces, { position: obj.piece.position })[0]; //use lodash to find the piece in the oppo list.
 
@@ -188,6 +188,9 @@
 			else{
 				moved.class=vm.icons.player2;
 			}
+			console.log('obj.moveTo', obj.moveTo);
+			console.log('moved', moved);
+			
 			moved.player = obj.movedTo.player;
 			moved.queen = obj.moveTo.queen;
 			$scope.$apply();
