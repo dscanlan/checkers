@@ -177,6 +177,7 @@
 			console.log('player2 found');
 			vm.myturn = true;
 			vm.player2Found = true;
+			$scope.$apply();
 		});
 
 		socket.on('move taken', function(obj){
