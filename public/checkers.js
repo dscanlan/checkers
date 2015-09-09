@@ -7,6 +7,7 @@
 		vm.lst = [];
 		vm.game = {};
 		vm.myturn = false;
+		vm.player2Found = false;
 		vm.selectedpiece = {};
 
 		vm.icons = {player1:'icon-myPiece', player1Queen:'icon-myQueen' ,player2:'icon-opponent',player2Queen: 'icon-opponentQueen',blank:'blank'};
@@ -166,10 +167,15 @@
 		socket.on('game', function(game){
 			vm.game = game;
 			if(vm.game.player==='player1'){
-				vm.myturn = true;
+				//vm.myturn = true;
 			}
 			$scope.$apply();
 			//console.log(game);
+		});
+
+		socket.on('player2 found', function(game){
+			vm.myturn = true;
+			vm.player2Found = true;
 		});
 
 		socket.on('move taken', function(obj){

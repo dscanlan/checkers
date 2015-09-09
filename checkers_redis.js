@@ -14,15 +14,7 @@ exports.checkAwaitingGames = function(socket, callback){
 	//console.log('in checkAwaitingGames');
 	var foundGame = false;
 	client.keys('*', function(err, games){
-		//console.log('in client keys', games.length);
-		/*async.forEachSeries(games, function(game, reply){
-			client.get(game, function(err, reply){
-				if(err){
-					console.log('Error finding game to play');
-				}
 
-			});
-		});*/
 		if(games.length > 0){
 			games.forEach(function(game, i){
 				//console.log(game);
