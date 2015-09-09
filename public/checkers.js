@@ -173,7 +173,7 @@
 		});
 
 		socket.on('move taken', function(obj){
-			//console.log(obj);
+			console.log('obj',obj);
 			vm.myturn = true;
 			var oppoPiece = _.where(vm.pieces, { position: obj.piece.position })[0]; //use lodash to find the piece in the oppo list.
 
@@ -190,7 +190,7 @@
 			}
 			console.log('obj.moveTo', obj.moveTo);
 			console.log('moved', moved);
-			
+
 			moved.player = obj.movedTo.player;
 			moved.queen = obj.moveTo.queen;
 			$scope.$apply();
