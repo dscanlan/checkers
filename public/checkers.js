@@ -49,7 +49,10 @@
 
 		vm.validateMove = function(from, to){
 			var currentPosition = _.where(vm.pieces, {position: from})[0];
-			
+
+			if(currentPosition.position.split('')[0] === to.split('')[0]){ //sideways move which isn't allowed
+				return false;
+			}
 			if(currentPosition.queen){
 				return true;
 			}
