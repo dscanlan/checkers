@@ -26,12 +26,14 @@ var dispatcher = function(type, obj, toid){
 	socketio.to(toid).emit(type, obj);
 };
 
+var 
+
 var associateGame = function(obj){
 	if(obj.found){
 		//console.log('associateGame assignGame');
 		redis.assignGame(obj.game, obj.socket.id, dispatcher);
 
-		dispatcher('player2 found', {player: obj.game});
+
 		//socket.to(obj.socket.id).emit('player2');
 	}else{
 		//console.log('associateGame createGame');
@@ -43,7 +45,7 @@ var associateGame = function(obj){
 
 socketio.on('connection', function(socket){
 	console.log('user connected', socket.id);
-	redis.checkAwaitingGames(socket, associateGame);
+	redis.checkAwaitingGames(socket, associateGame, dispatcher);
 	
 	socket.on('disconnect', function(){
 		redis.closeGame(socket.id);

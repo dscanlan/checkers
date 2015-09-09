@@ -10,7 +10,7 @@ client.on('connect', function(){
 
 var exports = module.exports;
 
-exports.checkAwaitingGames = function(socket, callback){
+exports.checkAwaitingGames = function(socket, callback, dispatcher){
 	//console.log('in checkAwaitingGames');
 	var foundGame = false;
 	client.keys('*', function(err, games){
@@ -25,6 +25,7 @@ exports.checkAwaitingGames = function(socket, callback){
 							//console.log('found game', reply);
 							callback({game: game, found: true, socket: socket});
 							foundGame = true;
+							dispatcher('player2 found', {player: socket.id}, reply.player1);
 						}
 						else{
 							//console.log('no games found');	
