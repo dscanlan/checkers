@@ -119,6 +119,7 @@
 			if(vm.game.player==='player1'){
 				vm.myturn = true;
 			}
+			$scope.apply();
 			//console.log(game);
 		});
 
@@ -139,9 +140,9 @@
 				moved.class=vm.icons.player2;
 			}
 			moved.player = obj.movedTo.player;
-			
+			$scope.$apply();
 			//console.log(moved);
-			console.log(vm.pieces);
+			//console.log(vm.pieces);
 		});
 	}]);
 	app.directive('checkersMyPiece', function(){
