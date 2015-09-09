@@ -26,7 +26,6 @@ var dispatcher = function(type, obj, toid){
 	socketio.to(toid).emit(type, obj);
 };
 
-var 
 
 var associateGame = function(obj){
 	if(obj.found){
