@@ -181,11 +181,13 @@
 		});
 
 		socket.on('player offline', function(msg){
+			console.log('player offline');
 			if(vm.game.player ==='player1'){
 				vm.player2Found = false;
 			}
 
 			vm.myturn = false;
+			$scope.$apply();
 		});
 
 		socket.on('move taken', function(obj){
