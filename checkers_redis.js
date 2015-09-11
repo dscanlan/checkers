@@ -120,3 +120,20 @@ exports.getOpponent = function(obj,  dispatcher){
 	});
 };
 
+exports.sendTakenPiece = function(obj,  dispatcher){
+	//console.log('in getOpponent', obj);
+	client.hgetall(obj.name, function(err, found){
+		if(obj.player ==='player1'){
+			//console.log('find opponent',obj);
+			dispatcher('taken piece', obj, found.player2);
+			
+		}
+		else{
+			dispatcher('taken piece', obj, found.player1);
+		}
+		
+		
+			
+	});
+};
+

@@ -61,6 +61,11 @@ socketio.on('connection', function(socket){
 		redis.getOpponent(obj, dispatcher);
 		
 	});
+
+	socket.on('taken piece', function(obj){
+		console.log('taken piece', obj);
+		redis.sendTakenPiece(obj, dispatcher);
+	});
 });
 
 
